@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Edit task' : 'Create a task' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()" class="task-form">
+  <mat-dialog-content class="task-form-content">
+    <mat-form-field appearance="outline">
+      <mat-label>Task title</mat-label>
+      <input matInput formControlName="title" placeholder="e.g. Review pull request" maxlength="120">
+      @if (form.controls.title.touched && form.controls.title.hasError('required')) {
+        <mat-error>A title is required.</mat-error>
+      }
+      @if (form.controls.title.touched && form.controls.title.hasError('maxlength')) {
+        <mat-error>Title must be 120 characters or fewer.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Description (optional)</mat-label>
+      <textarea matInput formControlName="description" placeholder="Add a few details…" rows="3" maxlength="2000"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        @for (option of statuses; track option.value) {
+          <mat-option [value]="option.value">{{ option.text }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Due date (optional)</mat-label>
+      <input matInput [matDatepicker]="dueDatePicker" formControlName="dueDate" placeholder="Choose a date">
+      <mat-datepicker-toggle matIconSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #dueDatePicker></mat-datepicker>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button matButton type="button" (click)="dialogRef.close(false)" [disabled]="saving">Cancel</button>
+    <button matButton="filled" type="submit" class="primary-action" [disabled]="saving || form.invalid">{{ saving ? 'Saving…' : 'Save task' }}</button>
+  </mat-dialog-actions>
+</form>

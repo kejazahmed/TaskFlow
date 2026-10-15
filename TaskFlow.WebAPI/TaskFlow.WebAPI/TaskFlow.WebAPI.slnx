@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="TaskFlow.Tests/TaskFlow.Tests.csproj" Id="4de83508-b5fd-460f-8160-b7a594778bdf" />
+  <Project Path="TaskFlow.WebAPI/TaskFlow.WebAPI.csproj" />
+</Solution>

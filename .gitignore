@@ -1,0 +1,22 @@
+
+# .NET
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
+
+# Angular / Node.js
+**/node_modules/
+**/dist/
+**/.angular/
+**/coverage/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+**/appsettings.Development.json
+
+# IDE
+.idea/

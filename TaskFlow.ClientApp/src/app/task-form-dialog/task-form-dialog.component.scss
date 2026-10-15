@@ -1,0 +1,8 @@
+.task-form { display: flex; flex-direction: column; }
+.task-form-content { display: flex; flex-direction: column; gap: 4px; padding-top: 8px; min-width: 440px; }
+.task-form-content mat-form-field { width: 100%; }
+.primary-action { --mdc-filled-button-container-color: #4266e8; --mdc-filled-button-label-text-color: #fff; }
+
+@media (max-width: 520px) {
+  .task-form-content { min-width: 0; }
+}

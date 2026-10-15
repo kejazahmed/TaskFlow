@@ -1,0 +1,115 @@
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand-mark">✓</div>
+    <div>
+      <!-- <div class="eyebrow">PERSONAL WORKSPACE BY KASHIF EJAZ</div> -->
+      <h1>Task <span>Flow</span></h1>
+    </div>
+    <div class="topbar-spacer"></div>
+    <button matButton="filled" class="primary-topbar" (click)="openCreateDialog()">＋ New task</button>
+  </header>
+
+  <main>
+    <section class="welcome-row">
+      <div>
+        <p class="eyebrow">YOUR OVERVIEW</p>
+        <h3>Make progress, one task at a time.</h3>
+        <!-- <p class="subheading">Keep track of what's next and celebrate what you've finished.</p> -->
+      </div>
+      <div class="date-pill">{{ tasks.length }} total tasks</div>
+    </section>
+
+    <section class="stats-grid" aria-label="Task summary">
+      <article class="stat-card">
+        <div class="stat-icon todo-icon">○</div>
+        <div>
+          <p>To do</p>
+          <strong>{{ todoCount }}</strong>
+        </div>
+      </article>
+      <article class="stat-card">
+        <div class="stat-icon progress-icon">◷</div>
+        <div>
+          <p>In progress</p>
+          <strong>{{ inProgressCount }}</strong>
+        </div>
+      </article>
+      <article class="stat-card">
+        <div class="stat-icon done-icon">✓</div>
+        <div>
+          <p>Completed</p>
+          <strong>{{ doneCount }}</strong>
+        </div>
+      </article>
+    </section>
+
+    <section class="tasks-panel">
+      <div class="panel-heading">
+        <div>
+          <h3>All tasks</h3>
+          <p>Manage your tasks, due dates and status.</p>
+        </div>
+        <button matButton (click)="loadTasks()">↻ Refresh</button>
+      </div>
+
+      @if (loading) {
+        <div class="loading-state">Loading tasks…</div>
+      }
+
+      @if (!loading) {
+        <div class="table-wrap">
+          <table mat-table [dataSource]="dataSource" matSort matSortActive="createdAt" matSortStart="desc" matSortDisableClear class="tasks-table" aria-label="Tasks">
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header="title">Task</th>
+              <td mat-cell *matCellDef="let dataItem">
+                <div class="task-title-cell">
+                  <strong>{{ dataItem.title }}</strong>
+                  @if (dataItem.description) {
+                    <span>{{ dataItem.description }}</span>
+                  }
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header="status" class="status-col">Status</th>
+              <td mat-cell *matCellDef="let dataItem">
+                <span class="status-chip" [class]="'status-' + dataItem.status">{{ statusText(dataItem.status) }}</span>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="dueDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header="dueDate" class="due-col">Due date</th>
+              <td mat-cell *matCellDef="let dataItem">
+                {{ dataItem.dueDate ? (dataItem.dueDate | date:'dd MMM yyyy') : '—' }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef class="actions-col">Actions</th>
+              <td mat-cell *matCellDef="let dataItem">
+                <div class="row-actions">
+                  <button matButton (click)="openEditDialog(dataItem)">Edit</button>
+                  <button matButton (click)="deleteTask(dataItem)" class="delete-btn">Delete</button>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr class="mat-row no-data-row" *matNoDataRow>
+              <td class="mat-cell no-data-cell" colspan="4">
+                <div class="empty-state">
+                  <strong>No tasks yet</strong>
+                  <span>Create your first task to get started.</span>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons aria-label="Select page of tasks"></mat-paginator>
+      }
+    </section>
+    <footer>Task Flow <span>•</span> Data is stored in memory and resets when the API restarts. <br><br><b> Developed By <a href="https://www.linkedin.com/in/kashif-ejaz-39661720/?isSelfProfile=true" target="_blank">Kashif Ejaz</a></b></footer>
+  </main>
+</div>

@@ -1,0 +1,70 @@
+> Building...
+√ Building...
+Initial chunk files | Names         |  Raw size
+main.js             | main          |  54.41 kB | 
+styles.css          | styles        |   8.82 kB | 
+polyfills.js        | polyfills     | 177 bytes | 
+
+                    | Initial total |  63.41 kB
+
+Application bundle generation complete. [1.900 seconds] - 2026-10-14T22:53:26.857Z
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://127.0.0.1:[1m58586[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+
+No output file changes.
+
+Application bundle generation complete. [1.293 seconds] - 2026-10-14T23:27:22.588Z
+
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names | Raw size
+main.js             | main  | 54.43 kB | 
+
+Application bundle generation complete. [0.390 seconds] - 2026-10-14T23:28:17.279Z
+
+Page reload sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names | Raw size
+main.js             | main  | 54.84 kB | 
+
+Application bundle generation complete. [0.390 seconds] - 2026-10-14T23:36:45.573Z
+
+Page reload sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names | Raw size
+main.js             | main  | 54.87 kB | 
+
+Application bundle generation complete. [0.451 seconds] - 2026-10-14T23:37:52.497Z
+
+Page reload sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names | Raw size
+main.js             | main  | 55.11 kB | 
+
+Application bundle generation complete. [0.477 seconds] - 2026-10-14T23:38:25.307Z
+
+Page reload sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names | Raw size
+main.js             | main  | 55.09 kB | 
+
+Application bundle generation complete. [0.464 seconds] - 2026-10-14T23:39:01.256Z
+
+Page reload sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names | Raw size
+main.js             | main  | 55.36 kB | 
+
+Application bundle generation complete. [1.046 seconds] - 2026-10-14T23:39:54.329Z
+
+Page reload sent to client(s).
