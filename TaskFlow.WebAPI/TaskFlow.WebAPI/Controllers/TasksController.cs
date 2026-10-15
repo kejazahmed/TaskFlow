@@ -6,8 +6,8 @@ namespace TaskFlow.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TasksController(ITaskService service) : ControllerBase
-    {
+    public class TasksController(ITaskService service, ILogger<TasksController> logger) : ControllerBase
+    { 
         [HttpGet]
         [ProducesResponseType(typeof(IReadOnlyList<TaskResponse>), StatusCodes.Status200OK)]
         public ActionResult<IReadOnlyList<TaskResponse>> GetAll() => Ok(service.GetAll());
@@ -15,6 +15,9 @@ namespace TaskFlow.WebAPI.Controllers
         [HttpGet("{id:guid}")]
         public ActionResult<TaskResponse> GetById(Guid id)
         {
+            logger.LogInformation(
+                "Retrieving task with ID {TaskId}", id);
+
             var task = service.GetById(id);
             return task is null ? NotFound() : Ok(task);
         }

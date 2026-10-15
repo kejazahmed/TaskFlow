@@ -1,21 +1,21 @@
 # TaskFlow
 
-A simple task management app with an ASP.NET Core Web API backend and an Angular front end.
+A small task manager with an ASP.NET Core Web API backend and an Angular front end.
 
-- **TaskFlow.WebAPI** – .NET 10 Web API (in-memory task store, seeded with sample data)
-- **TaskFlow.ClientApp** – Angular 22 + Angular Material single-page app
+- TaskFlow.WebAPI: a .NET 10 Web API with an in-memory task store, seeded with a few sample tasks.
+- TaskFlow.ClientApp: an Angular 22 + Angular Material single-page app.
 
 ## Prerequisites
 
-Install the following before running:
+You'll need these installed:
 
-| Tool | Version | Notes |
-|------|---------|-------|
-| Git | latest | to clone the repo |
-| .NET SDK | 10.0 | backend + tests |
-| Node.js | 22.x LTS or later | front end (includes npm) |
+| Tool | Version | Used for |
+|------|---------|----------|
+| Git | latest | cloning the repo |
+| .NET SDK | 10.0 | the API and its tests |
+| Node.js | 22.x LTS or later | the front end (npm comes with it) |
 
-Verify:
+Check the versions:
 
 ```powershell
 git --version
@@ -38,12 +38,14 @@ cd TaskFlow.WebAPI/TaskFlow.WebAPI
 dotnet run
 ```
 
-The API starts at **http://localhost:5080**. All routes are under `/api/tasks`:
-`GET /api/tasks`, `GET /api/tasks/{id}`, `POST /api/tasks`, `PUT /api/tasks/{id}`, `DELETE /api/tasks/{id}`.
+The API listens on http://localhost:5080, and everything is under /api/tasks:
+GET /api/tasks, GET /api/tasks/{id}, POST /api/tasks, PUT /api/tasks/{id}, and
+DELETE /api/tasks/{id}.
 
-Data is stored in memory, so it resets each time the API restarts.
+Tasks live in memory, so they reset every time the API restarts. Logs go to a rolling
+file, covered in Logging below.
 
-To restore/build only:
+To compile without running:
 
 ```powershell
 dotnet build
@@ -51,7 +53,7 @@ dotnet build
 
 ## Running the front end (ClientApp)
 
-Open a **second terminal** and keep the backend running.
+Leave the API running and open a second terminal.
 
 ```powershell
 cd TaskFlow.ClientApp
@@ -59,10 +61,10 @@ npm install
 npm start        # runs "ng serve"
 ```
 
-Open **http://localhost:4200** in your browser. The app talks to the API at
-`http://localhost:5080`, so the backend must be running first.
+Then open http://localhost:4200 in your browser. The app calls the API at
+http://localhost:5080, so the backend has to be running first.
 
-Other client scripts:
+Other scripts:
 
 ```powershell
 npm run build    # production build into dist/
@@ -76,18 +78,30 @@ cd TaskFlow.WebAPI
 dotnet test
 ```
 
+## Logging
+
+The API logs with log4net, configured in
+TaskFlow.WebAPI/TaskFlow.WebAPI/log4net.config.
+
+Logs are written to logs/taskflow.log inside the build output folder, for example
+TaskFlow.WebAPI/TaskFlow.WebAPI/bin/Debug/net10.0/logs/taskflow.log. The file rolls
+over at 10 MB and keeps the last 5 files.
+
+To change the log level or where logs go, edit log4net.config.
+
 ## Project structure
 
 ```
 TaskFlow/
 ├─ TaskFlow.WebAPI/
-│  ├─ TaskFlow.WebAPI/      # API project (Controllers, Services, Domain, Models, Infrastructure)
-│  └─ TaskFlow.Tests/       # xUnit tests
-└─ TaskFlow.ClientApp/      # Angular SPA
+│  ├─ TaskFlow.WebAPI/           # API project (Controllers, Services, Domain, Models, Infrastructure, Middleware)
+│  │  └─ log4net.config          # log4net settings
+│  └─ TaskFlow.Tests/            # xUnit tests
+└─ TaskFlow.ClientApp/           # Angular SPA
 ```
 
 ## Notes
 
-- No database required – tasks are kept in memory.
-- CORS is configured to allow only `http://localhost:4200`.
-- If the UI shows "Could not load tasks", check that the API is running on port 5080.
+- Tasks are kept in memory, so no database is needed.
+- CORS only allows http://localhost:4200.
+- If the UI says "Could not load tasks", make sure the API is running on port 5080.
